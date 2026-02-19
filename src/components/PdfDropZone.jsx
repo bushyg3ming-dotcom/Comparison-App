@@ -5,7 +5,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`
 
-function PdfDropZone({ label, file, onFileLoaded, onClear }) {
+function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false }) {
   const [isDragOver, setIsDragOver] = useState(false)
   const [numPages, setNumPages] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -72,7 +72,7 @@ function PdfDropZone({ label, file, onFileLoaded, onClear }) {
 
   return (
     <div
-      className={`pdf-zone ${isDragOver ? 'drag-over' : ''} ${file ? 'has-file' : ''}`}
+      className={`pdf-zone ${isDragOver ? 'drag-over' : ''} ${file ? 'has-file' : ''} ${isHidden ? 'hidden-zone' : ''}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
