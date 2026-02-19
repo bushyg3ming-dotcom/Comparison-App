@@ -11,6 +11,7 @@ function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false, ins
   const [currentPage, setCurrentPage] = useState(1)
   const [scale, setScale] = useState(1.0)
   const [error, setError] = useState(null)
+  const [copySuccess, setCopySuccess] = useState(false)
   const fileInputRef = useRef(null)
   const containerRef = useRef(null)
 
@@ -66,8 +67,24 @@ function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false, ins
     setCurrentPage(1)
     setScale(1.0)
     setError(null)
+    setCopySuccess(false)
     if (fileInputRef.current) fileInputRef.current.value = ''
     onClear()
+  }
+
+  const copyInfoToClipboard = async () => {
+    if (!file) return
+    const insuranceList = insuranceTypes.length > 0
+      ? insuranceTypes.map(t => t.replace(/-/g, ' ')).join(', ')
+      : 'None'
+    const infoText = `${label}\nFile: ${file.name}\nPages: ${numPages || 'Loading...'}\nInsurance Types: ${insuranceList}`
+    try {
+      await navigator.clipboard.writeText(infoText)
+      setCopySuccess(true)
+      setTimeout(() => setCopySuccess(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
   }
 
   return (
@@ -90,6 +107,13 @@ function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false, ins
         </div>
         {file && (
           <div className="zone-actions">
+            <button
+              className={`btn-icon btn-copy ${copySuccess ? 'copied' : ''}`}
+              onClick={copyInfoToClipboard}
+              title={copySuccess ? 'Copied!' : 'Copy info'}
+            >
+              {copySuccess ? '✓' : '📋'}
+            </button>
             <span className="file-name" title={file.name}>{file.name}</span>
             <button className="btn-icon btn-clear" onClick={handleClear} title="Remove PDF">
               ✕

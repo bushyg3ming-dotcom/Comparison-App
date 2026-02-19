@@ -195,6 +195,20 @@
   min-width: 0;
 }
 
+.btn-copy {
+  color: #64748b;
+}
+
+.btn-copy:hover {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-copy.copied {
+  background: #22c55e;
+  color: white;
+}
+
 .file-name {
   font-size: 0.7rem;
   color: #64748b;

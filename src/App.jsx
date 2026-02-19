@@ -9,7 +9,7 @@ function App() {
   const [pdfs, setPdfs] = useState([null, null, null, null])
   const [comparisonMode, setComparisonMode] = useState('all')
   const [insuranceCount, setInsuranceCount] = useState(2)
-  const [insuranceTypes, setInsuranceTypes] = useState(['total-cost-car', ''])
+  const [insuranceTypes, setInsuranceTypes] = useState(['', ''])
 
   const handleInsuranceCountChange = (e) => {
     const newCount = parseInt(e.target.value)
