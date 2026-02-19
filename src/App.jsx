@@ -33,6 +33,27 @@ function App() {
 
   const activeInsuranceTypes = insuranceTypes.filter(Boolean)
 
+  const getResultsText = () => {
+    const modeLabel = COMPARISON_MODES.find(m => m.value === comparisonMode)?.label || comparisonMode
+    const typesList = activeInsuranceTypes.length > 0 
+      ? activeInsuranceTypes.map(t => INSURANCE_TYPES.find(i => i.value === t)?.label || t).join(', ')
+      : 'None selected'
+    
+    return `Comparison Mode: ${modeLabel}\nInsurance Types: ${typesList}`
+  }
+
+  const copyResultsToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(getResultsText())
+      setCopySuccess(true)
+      setTimeout(() => setCopySuccess(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
+
+  const [copySuccess, setCopySuccess] = useState(false)
+
   const handlePdfLoaded = (index, file) => {
     setPdfs((prev) => {
       const updated = [...prev]
