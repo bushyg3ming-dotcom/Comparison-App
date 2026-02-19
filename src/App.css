@@ -52,18 +52,33 @@
   flex-shrink: 0;
 }
 
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.controls-grid.insurance-types-grid {
+  max-width: 1600px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #1e293b;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}
+
 .control-group {
   display: flex;
   align-items: center;
   gap: 10px;
-  max-width: 1600px;
-  margin: 0 auto;
 }
 
 .control-group label {
   font-size: 0.8rem;
   font-weight: 600;
   color: #94a3b8;
+  min-width: 120px;
 }
 
 .mode-select {
@@ -76,6 +91,8 @@
   font-weight: 500;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
+  flex: 1;
+  min-width: 0;
 }
 
 .mode-select:hover {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PdfDropZone from './components/PdfDropZone'
-import { COMPARISON_MODES, INSURANCE_TYPES } from './constants'
+import { COMPARISON_MODES, INSURANCE_TYPES, INSURANCE_COUNT_OPTIONS } from './constants'
 import './App.css'
 
 const ZONE_LABELS = ['Document A', 'Document B', 'Document C', 'Document D']
@@ -8,17 +8,30 @@ const ZONE_LABELS = ['Document A', 'Document B', 'Document C', 'Document D']
 function App() {
   const [pdfs, setPdfs] = useState([null, null, null, null])
   const [comparisonMode, setComparisonMode] = useState('all')
-  const [insuranceType1, setInsuranceType1] = useState('total-cost-car')
-  const [insuranceType2, setInsuranceType2] = useState('')
-  const [insuranceType3, setInsuranceType3] = useState('')
-  const [insuranceType4, setInsuranceType4] = useState('')
-  const [insuranceType5, setInsuranceType5] = useState('')
-  const [insuranceType6, setInsuranceType6] = useState('')
-  const [insuranceType7, setInsuranceType7] = useState('')
-  const [insuranceType8, setInsuranceType8] = useState('')
-  const [insuranceType9, setInsuranceType9] = useState('')
+  const [insuranceCount, setInsuranceCount] = useState(2)
+  const [insuranceTypes, setInsuranceTypes] = useState(['total-cost-car', ''])
 
-  const activeInsuranceTypes = [insuranceType1, insuranceType2, insuranceType3, insuranceType4, insuranceType5, insuranceType6, insuranceType7, insuranceType8, insuranceType9].filter(Boolean)
+  const handleInsuranceCountChange = (e) => {
+    const newCount = parseInt(e.target.value)
+    setInsuranceCount(newCount)
+    setInsuranceTypes((prev) => {
+      const updated = [...prev]
+      while (updated.length < newCount) {
+        updated.push('')
+      }
+      return updated.slice(0, newCount)
+    })
+  }
+
+  const handleInsuranceTypeChange = (index, value) => {
+    setInsuranceTypes((prev) => {
+      const updated = [...prev]
+      updated[index] = value
+      return updated
+    })
+  }
+
+  const activeInsuranceTypes = insuranceTypes.filter(Boolean)
 
   const handlePdfLoaded = (index, file) => {
     setPdfs((prev) => {
@@ -67,65 +80,56 @@ function App() {
       </header>
 
       <div className="controls-bar">
-        <div className="control-group">
-          <label htmlFor="comparison-mode">Comparison Mode:</label>
-          <select
-            id="comparison-mode"
-            value={comparisonMode}
-            onChange={(e) => setComparisonMode(e.target.value)}
-            className="mode-select"
-          >
-            {COMPARISON_MODES.map((mode) => (
-              <option key={mode.value} value={mode.value}>
-                {mode.label}
-              </option>
-            ))}
-          </select>
+        <div className="controls-grid">
+          <div className="control-group">
+            <label htmlFor="comparison-mode">Comparison Mode:</label>
+            <select
+              id="comparison-mode"
+              value={comparisonMode}
+              onChange={(e) => setComparisonMode(e.target.value)}
+              className="mode-select"
+            >
+              {COMPARISON_MODES.map((mode) => (
+                <option key={mode.value} value={mode.value}>
+                  {mode.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="control-group">
+            <label htmlFor="insurance-count">Number of Insurance Types:</label>
+            <select
+              id="insurance-count"
+              value={insuranceCount}
+              onChange={handleInsuranceCountChange}
+              className="mode-select"
+            >
+              {INSURANCE_COUNT_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <div className="control-group">
-          <label htmlFor="insurance-type-1">Insurance Type 1:</label>
-          <select
-            id="insurance-type-1"
-            value={insuranceType1}
-            onChange={(e) => setInsuranceType1(e.target.value)}
-            className="mode-select"
-          >
-            {INSURANCE_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="control-group">
-          <label htmlFor="insurance-type-2">Insurance Type 2:</label>
-          <select
-            id="insurance-type-2"
-            value={insuranceType2}
-            onChange={(e) => setInsuranceType2(e.target.value)}
-            className="mode-select"
-          >
-            {INSURANCE_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="control-group">
-          <label htmlFor="insurance-type-3">Insurance Type 3:</label>
-          <select
-            id="insurance-type-3"
-            value={insuranceType3}
-            onChange={(e) => setInsuranceType3(e.target.value)}
-            className="mode-select"
-          >
-            {INSURANCE_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </select>
+        <div className="controls-grid insurance-types-grid">
+          {insuranceTypes.map((type, index) => (
+            <div key={index} className="control-group">
+              <label htmlFor={`insurance-type-${index + 1}`}>Insurance Type {index + 1}:</label>
+              <select
+                id={`insurance-type-${index + 1}`}
+                value={type}
+                onChange={(e) => handleInsuranceTypeChange(index, e.target.value)}
+                className="mode-select"
+              >
+                {INSURANCE_TYPES.map((t) => (
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
         </div>
       </div>
 
