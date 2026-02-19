@@ -88,6 +88,18 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
+/* Insurance type badge in zone header */
+.insurance-badge {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
 /* ===== Comparison Grid ===== */
 .comparison-grid {
   display: grid;
@@ -135,6 +147,13 @@
   border-bottom: 1px solid #334155;
   flex-shrink: 0;
   gap: 8px;
+}
+
+.zone-label-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
 }
 
 .zone-label {

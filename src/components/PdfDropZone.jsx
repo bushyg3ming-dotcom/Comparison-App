@@ -5,7 +5,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`
 
-function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false }) {
+function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false, insuranceType }) {
   const [isDragOver, setIsDragOver] = useState(false)
   const [numPages, setNumPages] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -80,7 +80,10 @@ function PdfDropZone({ label, file, onFileLoaded, onClear, isHidden = false }) {
     >
       {/* Zone Header */}
       <div className="zone-header">
-        <span className="zone-label">{label}</span>
+        <div className="zone-label-group">
+          <span className="zone-label">{label}</span>
+          {insuranceType && <span className="insurance-badge">{insuranceType.replace(/-/g, ' ')}</span>}
+        </div>
         {file && (
           <div className="zone-actions">
             <span className="file-name" title={file.name}>{file.name}</span>

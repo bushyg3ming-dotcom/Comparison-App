@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PdfDropZone from './components/PdfDropZone'
-import { COMPARISON_MODES } from './constants'
+import { COMPARISON_MODES, INSURANCE_TYPES } from './constants'
 import './App.css'
 
 const ZONE_LABELS = ['Document A', 'Document B', 'Document C', 'Document D']
@@ -8,6 +8,7 @@ const ZONE_LABELS = ['Document A', 'Document B', 'Document C', 'Document D']
 function App() {
   const [pdfs, setPdfs] = useState([null, null, null, null])
   const [comparisonMode, setComparisonMode] = useState('all')
+  const [insuranceType, setInsuranceType] = useState('total-cost-car')
 
   const handlePdfLoaded = (index, file) => {
     setPdfs((prev) => {
@@ -75,6 +76,21 @@ function App() {
             ))}
           </select>
         </div>
+        <div className="control-group">
+          <label htmlFor="insurance-type">Insurance Type:</label>
+          <select
+            id="insurance-type"
+            value={insuranceType}
+            onChange={(e) => setInsuranceType(e.target.value)}
+            className="mode-select"
+          >
+            {INSURANCE_TYPES.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <main className={`comparison-grid mode-${comparisonMode}`}>
@@ -86,6 +102,7 @@ function App() {
             onFileLoaded={(file) => handlePdfLoaded(index, file)}
             onClear={() => handleClear(index)}
             isHidden={!visibleIndices.includes(index)}
+            insuranceType={insuranceType}
           />
         ))}
       </main>
