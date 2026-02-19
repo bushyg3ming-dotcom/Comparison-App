@@ -8,7 +8,17 @@ const ZONE_LABELS = ['Document A', 'Document B', 'Document C', 'Document D']
 function App() {
   const [pdfs, setPdfs] = useState([null, null, null, null])
   const [comparisonMode, setComparisonMode] = useState('all')
-  const [insuranceType, setInsuranceType] = useState('total-cost-car')
+  const [insuranceType1, setInsuranceType1] = useState('total-cost-car')
+  const [insuranceType2, setInsuranceType2] = useState('')
+  const [insuranceType3, setInsuranceType3] = useState('')
+  const [insuranceType4, setInsuranceType4] = useState('')
+  const [insuranceType5, setInsuranceType5] = useState('')
+  const [insuranceType6, setInsuranceType6] = useState('')
+  const [insuranceType7, setInsuranceType7] = useState('')
+  const [insuranceType8, setInsuranceType8] = useState('')
+  const [insuranceType9, setInsuranceType9] = useState('')
+
+  const activeInsuranceTypes = [insuranceType1, insuranceType2, insuranceType3, insuranceType4, insuranceType5, insuranceType6, insuranceType7, insuranceType8, insuranceType9].filter(Boolean)
 
   const handlePdfLoaded = (index, file) => {
     setPdfs((prev) => {
@@ -33,10 +43,6 @@ function App() {
     switch (comparisonMode) {
       case 'a-b':
         return [0, 1]
-      case 'b-c':
-        return [1, 2]
-      case 'c-d':
-        return [2, 3]
       case 'ab-c':
         return [0, 1, 2]
       case 'abc-d':
@@ -77,11 +83,41 @@ function App() {
           </select>
         </div>
         <div className="control-group">
-          <label htmlFor="insurance-type">Insurance Type:</label>
+          <label htmlFor="insurance-type-1">Insurance Type 1:</label>
           <select
-            id="insurance-type"
-            value={insuranceType}
-            onChange={(e) => setInsuranceType(e.target.value)}
+            id="insurance-type-1"
+            value={insuranceType1}
+            onChange={(e) => setInsuranceType1(e.target.value)}
+            className="mode-select"
+          >
+            {INSURANCE_TYPES.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="control-group">
+          <label htmlFor="insurance-type-2">Insurance Type 2:</label>
+          <select
+            id="insurance-type-2"
+            value={insuranceType2}
+            onChange={(e) => setInsuranceType2(e.target.value)}
+            className="mode-select"
+          >
+            {INSURANCE_TYPES.map((type) => (
+              <option key={type.value} value={type.value}>
+                {type.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="control-group">
+          <label htmlFor="insurance-type-3">Insurance Type 3:</label>
+          <select
+            id="insurance-type-3"
+            value={insuranceType3}
+            onChange={(e) => setInsuranceType3(e.target.value)}
             className="mode-select"
           >
             {INSURANCE_TYPES.map((type) => (
@@ -102,7 +138,7 @@ function App() {
             onFileLoaded={(file) => handlePdfLoaded(index, file)}
             onClear={() => handleClear(index)}
             isHidden={!visibleIndices.includes(index)}
-            insuranceType={insuranceType}
+            insuranceTypes={activeInsuranceTypes}
           />
         ))}
       </main>

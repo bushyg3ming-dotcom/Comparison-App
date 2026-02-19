@@ -100,6 +100,12 @@
   white-space: nowrap;
 }
 
+.insurance-badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
 /* ===== Comparison Grid ===== */
 .comparison-grid {
   display: grid;
@@ -432,23 +438,12 @@
   grid-template-columns: repeat(2, 1fr) !important;
 }
 
-.comparison-grid.mode-b-c {
-  grid-template-columns: repeat(2, 1fr) !important;
-}
-
-.comparison-grid.mode-c-d {
-  grid-template-columns: repeat(2, 1fr) !important;
-}
-
 .comparison-grid.mode-ab-c {
   grid-template-columns: repeat(3, 1fr) !important;
 }
 
 @media (max-width: 1100px) {
-
-  .comparison-grid.mode-a-b,
-  .comparison-grid.mode-b-c,
-  .comparison-grid.mode-c-d {
+  .comparison-grid.mode-a-b {
     grid-template-columns: 1fr !important;
   }
 
