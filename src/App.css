@@ -1,0 +1,361 @@
+/* ===== Layout ===== */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== Header ===== */
+.app-header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+  border-bottom: 1px solid #334155;
+  padding: 10px 20px;
+  flex-shrink: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.app-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  flex: 1;
+}
+
+.badge {
+  background: #3b82f6;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ===== Comparison Grid ===== */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 8px;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ===== PDF Zone ===== */
+.pdf-zone {
+  display: flex;
+  flex-direction: column;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  min-height: 0;
+}
+
+.pdf-zone.drag-over {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  background: #1a2d4a;
+}
+
+.pdf-zone.has-file {
+  border-color: #475569;
+}
+
+/* Zone Header */
+.zone-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #0f172a;
+  border-bottom: 1px solid #334155;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.zone-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.zone-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.file-name {
+  font-size: 0.7rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-clear {
+  color: #64748b;
+}
+
+.btn-clear:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== Drop Area ===== */
+.drop-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 6px;
+  padding: 20px;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.drop-area:hover {
+  background: #1a2d4a;
+}
+
+.drop-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.drop-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-align: center;
+}
+
+.drop-subtext {
+  font-size: 0.72rem;
+  color: #475569;
+}
+
+.drop-error {
+  font-size: 0.72rem;
+  color: #f87171;
+  margin-top: 4px;
+}
+
+.hidden-input {
+  display: none;
+}
+
+/* ===== PDF Viewer ===== */
+.pdf-viewer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* Toolbar */
+.pdf-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-tool {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #cbd5e1;
+  cursor: pointer;
+  padding: 3px 9px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  line-height: 1.4;
+}
+
+.btn-tool:hover:not(:disabled) {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.btn-tool:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.btn-tool.zoom-reset {
+  min-width: 48px;
+  text-align: center;
+  font-size: 0.72rem;
+}
+
+.page-info {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  padding: 0 4px;
+  min-width: 44px;
+  text-align: center;
+}
+
+/* Scroll Area */
+.pdf-scroll-area {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8px;
+  background: #334155;
+  min-height: 0;
+}
+
+.pdf-scroll-area::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.pdf-scroll-area::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.pdf-scroll-area::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+.pdf-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* React-PDF page */
+.react-pdf__Page {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Loading & Error States */
+.pdf-loading,
+.page-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+
+.pdf-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #f87171;
+  font-size: 0.8rem;
+}
+
+/* Spinner */
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #334155;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Footer ===== */
+.app-footer {
+  background: #0f172a;
+  border-top: 1px solid #1e293b;
+  padding: 6px 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.app-footer p {
+  font-size: 0.68rem;
+  color: #475569;
+}
+
+/* ===== Responsive (collapse to 2x2 on smaller screens) ===== */
+@media (max-width: 1100px) {
+  .comparison-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .pdf-zone {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pdf-zone {
+    height: 80vh;
+  }
+}
